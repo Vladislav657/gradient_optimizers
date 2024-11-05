@@ -20,11 +20,6 @@ N = 200
 gamma = 0.93
 v = 0
 
-# x = x0
-# for _ in range(N):
-#     x -= 0.01 * df(x)
-# print(x)
-
 X = np.arange(-2, 1, 0.01)
 Y = np.array([func(x) for x in X])
 

@@ -18,11 +18,6 @@ lmd = 0.02
 x0 = -1.5
 N = 100
 
-# x = x0
-# for _ in range(N):
-#     x -= 0.01 * df(x)
-# print(x)
-
 X = np.arange(-2, 1, 0.01)
 Y = np.array([func(x) for x in X])
 
@@ -40,4 +35,3 @@ for _ in range(N):
     x -= lmd * df(x)
 
 plt.ioff()
-# print(x)

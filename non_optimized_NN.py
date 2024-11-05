@@ -4,7 +4,6 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.utils import to_categorical
-import numpy as np
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
@@ -44,7 +43,7 @@ class DenseNN(tf.Module):
         return y
 
 
-layer_1 = DenseNN(128)
+layer_1 = DenseNN(100)
 layer_2 = DenseNN(10, activate="softmax")
 
 
@@ -58,7 +57,7 @@ square_error = lambda y_true, y_pred: tf.reduce_mean(tf.square(y_true - y_pred))
 
 learning_rate = 0.01
 
-BATCH_SIZE = 32
+BATCH_SIZE = 30
 EPOCHS = 5
 
 train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))

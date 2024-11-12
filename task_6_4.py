@@ -56,10 +56,9 @@ def model_predict(x):
 square_error = lambda y_true, y_pred: tf.reduce_mean(tf.square(y_true - y_pred))
 
 learning_rate = 0.01
-opt = tf.optimizers.Adam(learning_rate=learning_rate)
 
 BATCH_SIZE = 30
-EPOCHS = 5
+EPOCHS = 10
 
 train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
 train_dataset = train_dataset.shuffle(buffer_size=1024).batch(BATCH_SIZE)
@@ -72,10 +71,10 @@ for n in range(EPOCHS):
 
         loss += f_loss
         grads = tape.gradient(f_loss, [layer_1.trainable_variables, layer_2.trainable_variables])
-        opt.apply_gradients(zip(grads[0], layer_1.trainable_variables))
-        opt.apply_gradients(zip(grads[1], layer_2.trainable_variables))
-
-    print(f"loss = {loss.numpy()}")
+        layer_1.trainable_variables[0].assign_sub(learning_rate*grads[0][0])
+        layer_1.trainable_variables[1].assign_sub(learning_rate*grads[0][1])
+        layer_2.trainable_variables[0].assign_sub(learning_rate*grads[1][0])
+        layer_2.trainable_variables[1].assign_sub(learning_rate*grads[1][1])
 
 y = model_predict(x_test)
 y2 = tf.argmax(y, axis=1).numpy()

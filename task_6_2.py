@@ -56,6 +56,7 @@ def model_predict(x):
 square_error = lambda y_true, y_pred: tf.reduce_mean(tf.square(y_true - y_pred))
 
 learning_rate = 0.01
+opt = tf.optimizers.Adam(learning_rate=learning_rate)
 
 BATCH_SIZE = 30
 EPOCHS = 5
@@ -71,12 +72,8 @@ for n in range(EPOCHS):
 
         loss += f_loss
         grads = tape.gradient(f_loss, [layer_1.trainable_variables, layer_2.trainable_variables])
-        layer_1.trainable_variables[0].assign_sub(learning_rate*grads[0][0])
-        layer_1.trainable_variables[1].assign_sub(learning_rate*grads[0][1])
-        layer_2.trainable_variables[0].assign_sub(learning_rate*grads[1][0])
-        layer_2.trainable_variables[1].assign_sub(learning_rate*grads[1][1])
-        # opt.apply_gradients(zip(grads[0], layer_1.trainable_variables))
-        # opt.apply_gradients(zip(grads[1], layer_2.trainable_variables))
+        opt.apply_gradients(zip(grads[0], layer_1.trainable_variables))
+        opt.apply_gradients(zip(grads[1], layer_2.trainable_variables))
 
     print(f"loss = {loss.numpy()}")
 

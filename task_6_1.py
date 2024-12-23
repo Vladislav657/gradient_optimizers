@@ -69,7 +69,7 @@ def forward(x_in):
 
 back_propagation(10000)
 accuracy = 0
-for i in range(1000):
+for i in range(10000):
     pred = list([float(n[0]) for n in forward(x_test[i])])
     true = list([float(n[0]) for n in y_test[i]])
     if pred.index(max(pred)) == true.index(max(true)):
@@ -77,4 +77,4 @@ for i in range(1000):
     # print(*['{:0.9f}'.format(n[0]) for n in forward(x_test[i])])
     # print(*['{:0.9f}'.format(n[0]) for n in y_test[i]])
     # print()
-print("accuracy = ", accuracy / 10)
+print("accuracy =", accuracy / 100)
